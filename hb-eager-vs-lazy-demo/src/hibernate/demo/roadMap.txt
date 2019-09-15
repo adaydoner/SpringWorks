@@ -1,0 +1,18 @@
+we update Instructor.java for fetch=FetchType.EAGER ,  one shot deal for retrieving everything and fetch=FetchType.Lazy for retrieve data in another way
+
+we wrote EagerLazyDemo.java for this project and run this in debug mode
+and wrote FetchJoinDemo.java for retrieve data with HQL in Lazy mode ,  after closing session
+
+
+when fetchtype is eager , we will see hibernate will load instructor and courses in one time , and when we want to get courses we just get information from our ram 
+
+when we change fetchType.Lazy
+we would see , when we try to get course, hibernate needs to go to db and retrieve data for our request again
+we can follow these in debug mode , console logs
+
+
+
+when we try to get data with lazy load , it needs an open hibernate session.
+to solve this issue , we can use getter for once before session is closed, after we use one time, we can use another time as well even if our session close. 
+OR
+we can use HQL like FetchJoinDemo.java
