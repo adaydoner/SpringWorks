@@ -1,0 +1,6 @@
+for One-To-Many application
+
+we firstly wrote CreateInstructorDemo.java for creating instructor for our empty database
+then we wrote the CreateCoursesDemo.java for adding courses for instructor
+then we wrote GetInstructorCoursesDemo for getting courses over instructor
+then we wrote DeleteCourseDemo for showing deleting course doesnt effect instructor

@@ -1,0 +1,29 @@
+ONE TO ONE MAPPING
+
+UNI-DIRECTIONAL -> one way ilişki
+Instructor 'dan , Instructor Detail'e mesela.
+
+
+Development Process
+1-Database tablolarını tanımlamak
+2-InstructorDetail classını oluşturacağız
+3-Instructor classını oluşturacağız
+4-Main Application u yazacağız.
+
+iki ayrı tabloyu ilişkilendirmek için, foreign key kullanacağız ve diğer tablonun primary key ini refere eden bir columnu foreign key olarak set edeceğiz.
+iki ayrı class ı ilişkilendirmek için ise, hangi elementte foreign key özelliği varsa(başka class tipinde oluyor haliyle)
+ona @OneToOne annotationunu ve @JoinColumn ile normal db tablosundaki column adını yazarız.
+
+
+CASCADE
+apply the same operation to related entities
+default olarak hiç bir operasyon cascaded olmadığından, @OneToOne gibi annotation yazdığımız variableımıza cascade= CascadeType.ALL şeklinde her durumda related alanıda etkilemesi sağlanır.
+
+
+
+BI-DIRECTIONAL -> two way ilişki
+şimdi uni-directional da instructor'dan instructor_detail ' e gidebiliyoruz yani o diğer classı yükleyebiliriz 
+ama tersi durumu gerçekleştiremiyoruz, yani instructor_detail dan instructor a erişip işlem yapamıyoruz, bunu çift yönlü yapabilmek için, instructor_detail ' dan Instructor'a veri gönderip
+orda hali hazırda olan uni-directional ında olduğunu varsayarak iki yönlü bir ilişki ortaya çıkıcak, bunun için;
+InstructorDetail classına Instructor tipinde bir variable ekleyip @OneToOne(mappedBy="instructor_detail") annotationu ile , instructor classında instructor_detail propertysine baktırmayı sağlıyoruz.
+cascade i desteklemek içinde, annotation a ekstradan Cascade=CascadeType.ALL ekleriz yine.
