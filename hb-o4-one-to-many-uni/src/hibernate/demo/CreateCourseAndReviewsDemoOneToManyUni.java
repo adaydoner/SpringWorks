@@ -11,7 +11,6 @@ import hibernate.demo.entity.Course;
 import hibernate.demo.entity.Instructor;
 import hibernate.demo.entity.InstructorDetail;
 import hibernate.demo.entity.Review;
-import hibernate.demo.entity.Student;
 
 public class CreateCourseAndReviewsDemoOneToManyUni {
 
@@ -37,28 +36,14 @@ public class CreateCourseAndReviewsDemoOneToManyUni {
 			// create a course
 			Course theCourse = new Course("CS50");
 
-			// save the course ... and leverage the cascade all
-			System.out.println("Saving the course .. ");
-			session.save(theCourse);
-			System.out.println("Saved the course : " + theCourse);
-
-			//create the students
-			Student student1 = new Student("Ali", "Dogan", "ali@dogan.com");
-			Student student2 = new Student("Müge", "Leyla", "muge@leyla.com");
-			
-			//saving the students
-			System.out.println("Saving students.. ");
-			session.save(student1);
-			session.save(student2);
-			System.out.println("Saved students : " + theCourse.get);
-
-			
 			// add some reviews
 			Review review = new Review("Nice tutorial by Harvard.");
 			Review review2 = new Review("I remember everything I forget");
 			theCourse.addReview(review);
 			theCourse.addReview(review2);
 
+			// save the course ... and leverage the cascade all
+			session.save(theCourse);
 
 			// commit transaction
 			session.getTransaction().commit();
