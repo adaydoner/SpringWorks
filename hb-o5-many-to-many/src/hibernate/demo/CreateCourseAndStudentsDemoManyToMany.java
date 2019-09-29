@@ -13,7 +13,7 @@ import hibernate.demo.entity.InstructorDetail;
 import hibernate.demo.entity.Review;
 import hibernate.demo.entity.Student;
 
-public class CreateCourseAndReviewsDemoOneToManyUni {
+public class CreateCourseAndStudentsDemoManyToMany {
 
 	public static void main(String[] args) {
 
@@ -24,6 +24,7 @@ public class CreateCourseAndReviewsDemoOneToManyUni {
 				.addAnnotatedClass(InstructorDetail.class)
 				.addAnnotatedClass(Course.class)
 				.addAnnotatedClass(Review.class)
+				.addAnnotatedClass(Student.class)
 				.buildSessionFactory();
 
 		// create a session
@@ -34,32 +35,29 @@ public class CreateCourseAndReviewsDemoOneToManyUni {
 			// start a transaction
 			session.beginTransaction();
 
-			// create a course
+			//create course
 			Course theCourse = new Course("CS50");
-
-			// save the course ... and leverage the cascade all
-			System.out.println("Saving the course .. ");
+			
+			//save the course
+			System.out.println("Saving the course..");
 			session.save(theCourse);
 			System.out.println("Saved the course : " + theCourse);
-
-			//create the students
+			
+			//create students
 			Student student1 = new Student("Ali", "Dogan", "ali@dogan.com");
 			Student student2 = new Student("Müge", "Leyla", "muge@leyla.com");
 			
-			//saving the students
-			System.out.println("Saving students.. ");
+			//add students to the course
+			theCourse.addStudent(student1);
+			theCourse.addStudent(student2);
+			
+			//save the students
+			System.out.println("Saving the students..");
 			session.save(student1);
 			session.save(student2);
-			System.out.println("Saved students : " + theCourse.get);
-
+			System.out.println("Saved the students :" + theCourse.getStudents());
 			
-			// add some reviews
-			Review review = new Review("Nice tutorial by Harvard.");
-			Review review2 = new Review("I remember everything I forget");
-			theCourse.addReview(review);
-			theCourse.addReview(review2);
-
-
+			
 			// commit transaction
 			session.getTransaction().commit();
 
