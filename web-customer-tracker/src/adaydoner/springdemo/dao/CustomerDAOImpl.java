@@ -15,9 +15,9 @@ import adaydoner.springdemo.entity.Customer;
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
 	
 	@Override
 	@Transactional

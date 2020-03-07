@@ -16,6 +16,7 @@ public class CustomerController {
 	
 	
 	@Autowired
+	/* it automatically finds class that implements CustomerDAO and inject that*/
 	private CustomerDAO customerDAO;
 	
 	@RequestMapping("/list")
