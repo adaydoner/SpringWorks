@@ -60,12 +60,11 @@ public class CustomerController {
 		return "customer-form";
 	}
 
-	@GetMapping("/deleteCustomer")
-	public String deleteCustomer(@RequestParam("customerId") int theId, Model theModel) {
-		Customer theCustomer = customerService.getCustomer(theId);
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		
+		customerService.deleteCustomer(theId);
 
-		theModel.addAttribute("customer", theCustomer);
-
-		return "customer-form";
+		return "redirect:/customer/list";
 	}
 }
