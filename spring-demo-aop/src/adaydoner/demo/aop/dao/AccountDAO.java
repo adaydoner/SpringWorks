@@ -7,6 +7,6 @@ public class AccountDAO {
 	
 	
 	public void addAccount(){
-		System.out.println(getClass() + "/addAccount() method for DB works...");
+		System.out.println(getClass() + " : possible DB works for AccountDAO");
 	}
 }

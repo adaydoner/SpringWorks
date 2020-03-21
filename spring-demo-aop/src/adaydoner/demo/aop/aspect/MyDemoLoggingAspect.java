@@ -9,8 +9,12 @@ import org.springframework.stereotype.Component;
 public class MyDemoLoggingAspect {
 	
 	
-	@Before("execution(public void addAccount())") //pointcut expression
+	// pointcut expression --> "execution(public void addAccount())" :  match addAccount() method in any class
+	// pointcut expression --> "execution(public void adaydoner.demo.aop.dao.AccountDAO.addAccount())" :  match only AccountDAO.addAccount() method
+	// pointcut expression --> "execution(public void add*())" :  match any method that start with add in any class
+	// pointcut expression --> "execution(* add*())" :  match -> any modifier , any return type , name start with add
+	@Before("execution(* add*())") 
 	public void beforeAddAccountAdvice(){
-		System.out.println("Executing " + getClass() + "@Before advice , beforeAddAccontAdvice() method...");
+		System.out.println(getClass() + " : @Before advice method");
 	}
 }
