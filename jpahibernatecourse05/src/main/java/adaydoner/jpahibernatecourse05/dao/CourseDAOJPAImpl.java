@@ -1,5 +1,7 @@
 package adaydoner.jpahibernatecourse05.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import adaydoner.jpahibernatecourse05.entities.Course;
+import adaydoner.jpahibernatecourse05.entities.Review;
 
 @Repository
 @Transactional
@@ -40,6 +43,20 @@ public class CourseDAOJPAImpl implements Dao<Course> {
 		em.remove(courseThatGoingToDelete);
 	}
 	
+	public void addReviewsToCourse(Long theId, List<Review> theReviews) {
+		//get a course instance to add reviews
+		Course theCourse = findById(theId);
+
+		for (Review theReview : theReviews) {
+			//setting the relationship 
+			theCourse.addReview(theReview);
+			theReview.setCourse(theCourse);
+			
+			//since we hold this Course-Review relationship from reviews side, we need to persist the reviews to the db.
+			em.persist(theReview);
+		}
+	}
+	
 	
 	public void playWithEm(){
 		logger.info("\n\n\n>>>>>>>>>>>>>>>>>>>>>> Playing with Entity Manager...");
@@ -52,7 +69,6 @@ public class CourseDAOJPAImpl implements Dao<Course> {
 		em.persist(theCourse2);
 		
 	}
-
 }
 
 

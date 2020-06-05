@@ -9,6 +9,4 @@ public interface Dao<T>{
 	
 	public void deleteById(Long theId);
 	
-	public void playWithEm();
-
 }

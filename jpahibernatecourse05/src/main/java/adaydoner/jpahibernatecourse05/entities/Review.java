@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -22,6 +23,9 @@ public class Review {
 
 	@Column(name = "description")
 	private String description;
+	
+	@ManyToOne
+	private Course course;
 
 
 	protected Review() {
@@ -36,8 +40,17 @@ public class Review {
 	 * getters and setters
 	 */
 
+	
 	public Long getId() {
 		return id;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public String getDescription() {
@@ -58,7 +71,6 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", rating=" + rating + ", description=" + description + "]";
+		return "Review [rating=" + rating + ", description=" + description + "]";
 	}
-
 }

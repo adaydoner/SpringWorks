@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import adaydoner.jpahibernatecourse05.entities.Course;
 import adaydoner.jpahibernatecourse05.entities.Passport;
 import adaydoner.jpahibernatecourse05.entities.Student;
 
@@ -28,7 +29,6 @@ public class StudentDAOJPAImplTest {
 	private EntityManager em;
 	
 	@Test
-	@Transactional
 	public void someTest() {
 		studentDAO.playWithEm();
 		Student student = em.find(Student.class, 20001L);
@@ -56,8 +56,6 @@ public class StudentDAOJPAImplTest {
 	}
 	
 	
-	
-	
 	@Test
 	@Transactional
 	public void retrievePassportAndAssociatedStudent() {
@@ -66,6 +64,36 @@ public class StudentDAOJPAImplTest {
 		logger.info("student -> {}", passport.getStudent());
 	}
 
-
-
+	@Test
+	@Transactional
+	public void retrieveStudentAndCourses(){
+		Student student = em.find(Student.class, 20001L);
+		logger.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Student --> {}",student);
+		logger.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Student's courses --> {}",student.getCourses());
+		
+		
+		Course course = em.find(Course.class, 10001L);
+		logger.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Course --> {}",course);
+		logger.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Course's student--> {}",course.getStudents());
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

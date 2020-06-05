@@ -1,5 +1,8 @@
 package adaydoner.jpahibernatecourse05;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import adaydoner.jpahibernatecourse05.dao.CourseDAOJPAImpl;
 import adaydoner.jpahibernatecourse05.dao.StudentDAOJPAImpl;
 import adaydoner.jpahibernatecourse05.entities.Course;
-import adaydoner.jpahibernatecourse05.entities.Passport;
+import adaydoner.jpahibernatecourse05.entities.Review;
 import adaydoner.jpahibernatecourse05.entities.Student;
 
 @SpringBootApplication
@@ -30,7 +33,7 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("\n>>>> Course with id 10001 : {}",courseDAO.findById((long) 10001));
+/*		logger.info("\n>>>> Course with id 10001 : {}",courseDAO.findById((long) 10001));
 		Course course = new Course("Memory Management");
 		logger.info("\n>>>> Course inserted : {}",courseDAO.save(course));
 		course.setName("Fiction");
@@ -44,7 +47,30 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 		Student theStudent = new Student("alidogan for test", new Passport("1234"));
 		logger.info("\n>>>> student inserted : {}",studentDAO.save(theStudent));
 		
+		studentDAO.playWithEm();
+		Student student = studentDAO.findById((long) 20001);
+		logger.info(">>>> Student -> {}", student);
+		
+		Passport passport = student.getPassport();
+		logger.info(">>>> Passport -> {}", passport);*/
+		
 		//courseDAO.playWithEm();
+		
+		
+		/*try addReviewsToCourse method at CourseDAOJPAImpl.java
+		
+		List<Review> reviews = new ArrayList<>();
+		reviews.add(new Review("4", "add review from addReviewsToCourse method"));
+		reviews.add(new Review("9", "add another review from addReviewsToCourse method"));
+		courseDAO.addReviewsToCourse(10001L, reviews);
+		
+		*/
+		
+		//studentDAO.addStudentsAndCourses(new Student("ali for test"), new Course("course testing"));
+		//studentDAO.addCourseToStudent(20001L, new Course("course testing"));
+		Student theStudent = studentDAO.findById(20001L);
+		studentDAO.addNewCourseToStudent(theStudent, new Course("course testing"));
+		
 		
 	}
 }

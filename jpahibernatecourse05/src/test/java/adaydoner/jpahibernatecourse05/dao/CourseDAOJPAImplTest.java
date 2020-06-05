@@ -2,6 +2,10 @@ package adaydoner.jpahibernatecourse05.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import adaydoner.jpahibernatecourse05.entities.Course;
+import adaydoner.jpahibernatecourse05.entities.Review;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,6 +26,9 @@ public class CourseDAOJPAImplTest {
 	
 	@Autowired
 	private CourseDAOJPAImpl courseDAO;
+	
+	@Autowired
+	private EntityManager em;
 	
 	@Test
 	public void findById_10001() {
@@ -45,5 +53,43 @@ public class CourseDAOJPAImplTest {
 		courseDAO.save(course);
 		assertEquals("entry updated", courseDAO.findById((long)10001).getName());
 	}
-
+	
+	// test onetomany relationship from one's side.
+	@Test
+	@Transactional
+	public void retrieveReviewForCourse(){
+		Course course = courseDAO.findById(10001L);
+		logger.info("{}",course.getReviews());
+	}
+	
+	
+	// test onetomany relationship from many's side.
+	@Test
+	@Transactional
+	public void retrieveCourseFromReview(){
+		Review review = em.find(Review.class, 40002L);
+		logger.info("{}",review.getCourse());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
