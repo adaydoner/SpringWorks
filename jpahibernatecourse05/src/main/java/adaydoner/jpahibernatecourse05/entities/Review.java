@@ -26,6 +26,9 @@ public class Review {
 	
 	@ManyToOne
 	private Course course;
+	
+	@ManyToOne
+	private Student student;
 
 
 	protected Review() {
@@ -67,6 +70,14 @@ public class Review {
 
 	public void setRating(String rating) {
 		this.rating = rating;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override

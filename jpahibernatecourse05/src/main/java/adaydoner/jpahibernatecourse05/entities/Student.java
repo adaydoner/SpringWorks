@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,6 +37,9 @@ public class Student {
 	joinColumns=@JoinColumn(name="student_id"),
 	inverseJoinColumns=@JoinColumn(name="course_id"))
 	private List<Course> courses = new ArrayList<>();
+	
+	@OneToMany(mappedBy="student")
+	private List<Review> reviews = new ArrayList<>();
 
 
 	protected Student() {
@@ -85,6 +89,18 @@ public class Student {
 	
 	public void removeCourse(Course course) {
 		this.courses.remove(course);
+	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void addReview(Review review) {
+		this.reviews.add(review);
+	}
+	
+	public void removeReview(Review review) {
+		this.reviews.remove(review);
 	}
 
 	@Override

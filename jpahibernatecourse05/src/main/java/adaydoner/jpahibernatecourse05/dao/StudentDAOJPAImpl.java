@@ -1,5 +1,7 @@
 package adaydoner.jpahibernatecourse05.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import adaydoner.jpahibernatecourse05.entities.Course;
+import adaydoner.jpahibernatecourse05.entities.Review;
 import adaydoner.jpahibernatecourse05.entities.Student;
 
 @Repository
@@ -53,22 +56,34 @@ public class StudentDAOJPAImpl implements Dao<Student> {
 	}
 
 	public void addStudentsAndCourses(Student student, Course course) {
+		em.persist(course);
+		
+		if(student.getId() != null){
+			student = em.merge(student);
+		} else {
+			em.persist(student);
+		}
 		
 		student.addCourse(course);
 		course.addStudent(student);
 		
-		em.persist(course);
-		em.persist(student);
-	}
-	
-	public void addNewCourseToStudent(Student student, Course course) {
-		student = em.merge(student);
-		student.addCourse(course);
-		course.addStudent(student);
-		em.persist(course);
-		em.persist(student);
 	}
 
+	public void addReviewsForStudent(Student theStudent, List<Review> reviews) {
+		if(theStudent.getId() != null){
+			theStudent = em.merge(theStudent);
+		} else {
+			em.persist(theStudent);
+		}
+		
+		//set relationships
+		for (Review review : reviews) {
+			theStudent.addReview(review);
+			review.setStudent(theStudent);
+			
+			em.persist(review);
+		}
+	}
 }
 
 

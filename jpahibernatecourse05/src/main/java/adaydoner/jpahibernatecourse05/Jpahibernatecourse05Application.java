@@ -1,6 +1,7 @@
 package adaydoner.jpahibernatecourse05;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -52,25 +53,53 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 		logger.info(">>>> Student -> {}", student);
 		
 		Passport passport = student.getPassport();
-		logger.info(">>>> Passport -> {}", passport);*/
+		logger.info(">>>> Passport -> {}", passport);
+*/
 		
-		//courseDAO.playWithEm();
-		
-		
-		/*try addReviewsToCourse method at CourseDAOJPAImpl.java
-		
+		//try addReviewsToCourse method at CourseDAOJPAImpl.java
+		/*
 		List<Review> reviews = new ArrayList<>();
 		reviews.add(new Review("4", "add review from addReviewsToCourse method"));
 		reviews.add(new Review("9", "add another review from addReviewsToCourse method"));
 		courseDAO.addReviewsToCourse(10001L, reviews);
-		
 		*/
 		
-		//studentDAO.addStudentsAndCourses(new Student("ali for test"), new Course("course testing"));
-		//studentDAO.addCourseToStudent(20001L, new Course("course testing"));
-		Student theStudent = studentDAO.findById(20001L);
-		studentDAO.addNewCourseToStudent(theStudent, new Course("course testing"));
 		
+		
+		
+		// try addStudentsAndCourses for student course relationship
+		
+		/*
+		Student theStudent = studentDAO.findById(20001L);
+		new Student("ali for test")
+		studentDAO.addStudentsAndCourses(new Student("ali for test"), new Course("course testing"));
+		*/
+		
+		
+		
+		// try addReviewsForStudent for student course review tables
+		Student theStudent = studentDAO.findById(20001L);
+		List<Review> reviews = Arrays.asList(
+				new Review("5", "comment jane for test to null course"),
+				new Review("4", "second comment jane for test to null course")
+				);
+		//new Student("ali for test")
+		studentDAO.addReviewsForStudent(theStudent,reviews);
 		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
