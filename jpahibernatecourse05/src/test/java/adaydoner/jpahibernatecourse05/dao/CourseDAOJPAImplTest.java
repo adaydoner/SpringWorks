@@ -1,10 +1,9 @@
 package adaydoner.jpahibernatecourse05.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,68 +11,80 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import adaydoner.jpahibernatecourse05.entities.Course;
-import adaydoner.jpahibernatecourse05.entities.Review;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CourseDAOJPAImplTest {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
-	private CourseDAOJPAImpl courseDAO;
-	
+	private CourseDAOSpringData courseDaoSpringData;
+
 	@Autowired
 	private EntityManager em;
-	
+
 	@Test
+	@Transactional
 	public void findById_10001() {
 		logger.info("\n>>>> findById_10001 test method...");
-		Course theCourse = courseDAO.findById((long)10001);
-		assertEquals("Data Structures",theCourse.getName());
+		Optional<Course> theCourse = courseDaoSpringData.findById(10001L);
+		if (theCourse.isPresent()) {
+			logger.info("\n>>>> findById_10001 get...{}", courseDaoSpringData.getOne(10001L));
+		}
 	}
-	
-	@Test
-	@DirtiesContext
-	public void deleteById_10001() {
-		logger.info("\n>>>> deleteById_10001 test method...");
-		courseDAO.deleteById((long)10001);
-		assertNull(courseDAO.findById((long)10001));
-	}
-	
-	@Test
-	@DirtiesContext
-	public void updateTest() {
-		Course course = courseDAO.findById((long)10001);
-		course.setName("entry updated");
-		courseDAO.save(course);
-		assertEquals("entry updated", courseDAO.findById((long)10001).getName());
-	}
-	
-	// test onetomany relationship from one's side.
+
 	@Test
 	@Transactional
-	public void retrieveReviewForCourse(){
-		Course course = courseDAO.findById(10001L);
-		logger.info("{}",course.getReviews());
+	public void findAllAndSort() {
+		logger.info("\n>>>> findAll test method...");
+		List<Course> allCourses = courseDaoSpringData.findAll();
+		logger.info("\n>>>> findAll ...{}", allCourses);
+
+		Sort sortDecendingByName = new Sort(Sort.Direction.DESC, "name");
+		List<Course> allCoursesDescendingOrder = courseDaoSpringData.findAll(sortDecendingByName);
+		logger.info("\n>>>> findAll descending by name...{}", allCoursesDescendingOrder);
 	}
-	
-	
-	// test onetomany relationship from many's side.
+
 	@Test
 	@Transactional
-	public void retrieveCourseFromReview(){
-		Review review = em.find(Review.class, 40002L);
-		logger.info("{}",review.getCourse());
+	public void pagination() {
+		Page<Course> firstPage = courseDaoSpringData.findAll(PageRequest.of(0, 1));
+		logger.info("\n>>>> First Page of all course ...{}", firstPage.getContent());
+
+		Page<Course> secondPage = courseDaoSpringData.findAll(PageRequest.of(1, 1));
+		logger.info("\n>>>> Second Page of all course ...{}", secondPage.getContent());
+
+		Pageable thirdPage = secondPage.nextPageable();
+		logger.info("\n>>>> Third Page of all course ...{}", courseDaoSpringData.findAll(thirdPage).getContent());
+
+	}
+
+	@Test
+	@Transactional
+	public void findByName() {
+		logger.info("\n>>>> findByName test method...");
+		List<Course> theCourse = courseDaoSpringData.findByName("Data Structures");
+		logger.info("\n>>>> findByName get...{}", theCourse);
+	}
+	
+	@Test
+	@Transactional
+	public void courseWithSInName() {
+		logger.info("\n>>>> courseWithSInName test method...");
+		//List<Course> theCourse = courseDaoSpringData.courseWithSInName();
+		List<Course> theCourse = courseDaoSpringData.courseWithSInNameUsingNativeQuery();
+		logger.info("\n>>>> courseWithSInName get...{}", theCourse);
 	}
 }
-
-
-
 
 
 

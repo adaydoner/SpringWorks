@@ -78,13 +78,13 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 		
 		
 		// try addReviewsForStudent for student course review tables
-		Student theStudent = studentDAO.findById(20001L);
+/*		Student theStudent = studentDAO.findById(20001L);
 		List<Review> reviews = Arrays.asList(
 				new Review("5", "comment jane for test to null course"),
 				new Review("4", "second comment jane for test to null course")
 				);
 		//new Student("ali for test")
-		studentDAO.addReviewsForStudent(theStudent,reviews);
+		studentDAO.addReviewsForStudent(theStudent,reviews);*/
 		
 	}
 }
