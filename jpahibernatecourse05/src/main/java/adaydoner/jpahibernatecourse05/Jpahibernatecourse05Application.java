@@ -34,6 +34,7 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 /*		logger.info("\n>>>> Course with id 10001 : {}",courseDAO.findById((long) 10001));
 		Course course = new Course("Memory Management");
 		logger.info("\n>>>> Course inserted : {}",courseDAO.save(course));
@@ -43,7 +44,11 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 		course.setName("Another Fiction");
 		course = courseDAO.save(course);
 		logger.info("\n>>>> Updated course' name that has id {} to Fiction : {}",course.getId(),courseDAO.findById((long) 10004));
-		
+		Course course2 = courseDAO.findById(10004L);
+		logger.info("\n>>>> course2 {}",course2);
+		Course course3 = courseDAO.findById(10004L);
+		logger.info("\n>>>> course3 {}",course3);
+				
 		logger.info("\n\n\n\n\n>>>> Student with id 20001 : {}",studentDAO.findById((long) 20001));
 		Student theStudent = new Student("alidogan for test", new Passport("1234"));
 		logger.info("\n>>>> student inserted : {}",studentDAO.save(theStudent));

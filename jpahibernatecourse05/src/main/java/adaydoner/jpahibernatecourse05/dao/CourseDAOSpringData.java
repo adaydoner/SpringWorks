@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import adaydoner.jpahibernatecourse05.entities.Course;
 
-
 public interface CourseDAOSpringData extends JpaRepository<Course, Long> {
 	List<Course> findByNameAndId(String name, Long id);
 
