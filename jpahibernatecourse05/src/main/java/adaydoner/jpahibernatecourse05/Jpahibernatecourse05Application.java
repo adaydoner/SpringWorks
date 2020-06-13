@@ -36,9 +36,9 @@ public class Jpahibernatecourse05Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		// soft delete demo
-/*		logger.info("\n>>>> deleteById_10002 test method...");
+		logger.info("\n\n>>>> deleteById_10002 command line runner...");
 		courseDAO.deleteById((long)10002);
-		courseDAO.findById(10002L);*/
+		courseDAO.findById(10002L);
 		
 /*		logger.info("\n>>>> Course with id 10001 : {}",courseDAO.findById((long) 10001));
 		Course course = new Course("Memory Management");

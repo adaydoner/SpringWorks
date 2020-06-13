@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import adaydoner.jpahibernatecourse05.entities.Address;
 import adaydoner.jpahibernatecourse05.entities.Course;
 import adaydoner.jpahibernatecourse05.entities.Passport;
 import adaydoner.jpahibernatecourse05.entities.Student;
@@ -53,6 +54,16 @@ public class StudentDAOJPAImplTest {
 		
 		// if we annotate this method or class with @Transactional , hibernate wont kill transaction after 33. line so it will be able to fetch this passport with not killed session. 
 		logger.info(">>>> Student passport details are -> {}",student.getPassport());
+	}
+	
+	@Test
+	@Transactional
+	public void setEmbeddedAddressDetails() {
+		Student student = em.find(Student.class, 20001L);
+		student.setAddress(new Address("pendik", "istanbul"));
+		//to push setAddress change to db
+		em.flush();
+		logger.info(">>>> Student -> {}", student);
 	}
 	
 	

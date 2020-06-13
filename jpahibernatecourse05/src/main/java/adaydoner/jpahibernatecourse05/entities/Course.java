@@ -14,12 +14,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "Course")
@@ -32,6 +35,8 @@ import org.hibernate.annotations.Where;
 @Where(clause="is_deleted = false")
 public class Course {
 
+	private static Logger logger = LoggerFactory.getLogger(Course.class);
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -60,6 +65,12 @@ public class Course {
 
 	public Course(String name) {
 		this.name = name;
+	}
+	
+	@PreRemove
+	private void preRemove(){
+		logger.info("\n\n>>>> Course.class preRemove method...");
+		this.isDeleted=true;
 	}
 
 	/*
