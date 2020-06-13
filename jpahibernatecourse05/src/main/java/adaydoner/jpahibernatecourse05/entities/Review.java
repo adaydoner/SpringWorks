@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "Review")
@@ -28,6 +30,7 @@ public class Review {
 	private Course course;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Student student;
 
 
