@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.cache.annotation.Cacheable;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "Course")
@@ -26,6 +28,8 @@ import org.springframework.cache.annotation.Cacheable;
 		@NamedQuery(name = "query_with_where_name_like_call", query = "SELECT c FROM Course c WHERE name like '%call%'") 
 		})
 @Cacheable
+@SQLDelete(sql="update course set is_deleted=true where id=?")
+@Where(clause="is_deleted = false")
 public class Course {
 
 	@Id
@@ -47,6 +51,9 @@ public class Course {
 
 	@CreationTimestamp
 	private LocalDateTime createdDate;
+	
+	@Column(name="is_deleted")
+	private boolean isDeleted;
 
 	protected Course() {
 	}
@@ -59,9 +66,18 @@ public class Course {
 	 * getters and setters
 	 */
 
+
 	
 	public Long getId() {
 		return id;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public String getName() {

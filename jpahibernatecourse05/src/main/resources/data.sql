@@ -1,6 +1,6 @@
-INSERT INTO course(id,name, created_date, last_updated_date) VALUES (10001, 'Data Structures', sysdate(), sysdate());
-INSERT INTO course(id,name, created_date, last_updated_date) VALUES (10002, 'CS50', sysdate(), sysdate());
-INSERT INTO course(id,name, created_date, last_updated_date) VALUES (10003, 'IOS', sysdate(), sysdate());
+INSERT INTO course(id,name, created_date, last_updated_date, is_deleted) VALUES (10001, 'Data Structures', sysdate(), sysdate(),false);
+INSERT INTO course(id,name, created_date, last_updated_date, is_deleted) VALUES (10002, 'CS50', sysdate(), sysdate(),false);
+INSERT INTO course(id,name, created_date, last_updated_date, is_deleted) VALUES (10003, 'IOS', sysdate(), sysdate(),false);
 
 
 INSERT INTO passport(id,number) VALUES (30001,'TR00222');

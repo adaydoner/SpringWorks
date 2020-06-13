@@ -41,10 +41,10 @@ public class CourseDAOJPAImplTest {
 	
 	@Test
 	@DirtiesContext
-	public void deleteById_10001() {
-		logger.info("\n>>>> deleteById_10001 test method...");
-		courseDAO.deleteById((long)10001);
-		assertNull(courseDAO.findById((long)10001));
+	public void deleteById_10002() {
+		logger.info("\n>>>> deleteById_10002 test method...");
+		courseDAO.deleteById((long)10002);
+		assertNull(courseDAO.findById((long)10002));
 	}
 	
 	@Test
